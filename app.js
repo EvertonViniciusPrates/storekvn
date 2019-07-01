@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser') // trata a conversão do corpode requisição
+const bodyParser = require('body-parser') // trata a conversão do corpo de requisição
 const app = express(); // basicamente gerencia toda nossa arquitetura, desde a conexão de banco a rotas.
 const port = normalizaPort(process.env.PORT || '3000');
 const db = require('./src/config/config');

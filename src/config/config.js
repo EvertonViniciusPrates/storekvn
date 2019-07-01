@@ -1,7 +1,8 @@
 const id = require('uuid/v1');// gera id automaticamente
 id();
 
-const Pg = require('pg').Pool; // Pool, é po drive do postGres
+const product = require('../models/Product');
+const Pg = require('pg').Pool; // Pool, é pro drive do postGres
 const pg = new Pg({
     user: 'postgres',
     host: 'localhost',
@@ -10,11 +11,12 @@ const pg = new Pg({
     port: 5432,
 });
 
-// Recupear todos produtos cadastrados no sistema
+// Recupera todos produtos cadastrados no sistema
 const getProducts = (request, response) => {
-    pg.query('SELECT * FROM products', (error, results) => {
+    pg.query(`SELECT * FROM ${product.Product.getClassName()}`, (error, results) => {
         if (error) {
-            throw error
+            console.log(error);            
+            throw error;
         }
         response.status(200).json(results.rows)
     });
@@ -24,8 +26,7 @@ const getProducts = (request, response) => {
 const createProducts = (request, response) => {
     var userId = id();
     const { name, price, description} = request.body  
-    pg.query('INSERT INTO products (name, id, price, description) VALUES ($1, $2, $3, $4)', 
-        [name, userId, price, description], (error, results) => {
+    pg.query(`INSERT INTO ${product.Product.getClassName()}(${product.Product.getProperties()})VALUES ($1, $2, $3, $4)`, [name, userId, price, description], (error, results) => {
       if (error) {
         throw error;
       }

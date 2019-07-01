@@ -5,6 +5,8 @@ class Product{
         this.price = price;
         this.description = description;
     }
+    static getClassName(){ return 'products'; };// nome da entidade do banco
+    static getProperties(){ return 'name, id, price, description'; };
 }
 //exporta  sua classe  caso precise dar um using nela em outro lugar do codigo
 module.exports = { Product: Product }
