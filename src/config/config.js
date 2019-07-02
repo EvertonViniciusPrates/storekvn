@@ -51,12 +51,6 @@ const createProducts = (request, response) => {
 
 // Atualiza produto no sistema
 const updateUser = (request, response) => {
-    const id = request.params.id;
-    const {
-        name,
-        price,
-        description
-    } = request.body;
     update(request, product.Product, response);
 }
 
@@ -79,8 +73,8 @@ function update(request, entityName, response){
         (error, result) => {
             if (error) {
                 throw error
-            }
-            response.status(200).send(`User modified:${JSON.stringify(request.body)}`)
+            }// TODO VER ISSO AQUE
+            response.status(200).send(commandResult())
         }
     );
 }
